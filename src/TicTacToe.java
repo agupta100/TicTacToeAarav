@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class TicTacToe
 {
     /** Board Markers **/
+    private TicTacToeViewer window;
     public static final String X_MARKER = "X";
     public static final String O_MARKER = "O";
     public static final String BLANK = "-";
@@ -43,6 +44,7 @@ public class TicTacToe
      */
     public TicTacToe() {
         // Initialize Squares in the board
+        window = new TicTacToeViewer(this);
         this.board = new Square[3][3];
         for(int row = 0; row < this.board.length; row++) {
             for(int col = 0; col< this.board[row].length; col++) {
@@ -116,6 +118,7 @@ public class TicTacToe
             int col = input.nextInt();
             if(this.pickLocation(row, col)) {
                 this.takeTurn(row, col);
+                window.repaint();
             } else {
                 System.out.println("That space is taken, or you entered an invalid row/col");
             }
