@@ -61,8 +61,9 @@ public class Square {
         return this.marker;
     }
 
-    public void draw(Graphics g)
+    public void draw(Graphics g, int x, int y, int widthAndHeight, Image desired)
     {
+        g.drawImage(desired, x, y, widthAndHeight, widthAndHeight, null);
 
     }
 }
