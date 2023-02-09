@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -18,7 +19,6 @@ public class Square {
     private int row;
     private int col;
     private boolean isWinningSquare;
-
     /**
      * Constructor to initialize one Square of the
      * TicTacToe board
@@ -61,9 +61,49 @@ public class Square {
         return this.marker;
     }
 
-    public void draw(Graphics g, int x, int y, int widthAndHeight, Image desired)
+    public void draw(Graphics g, TicTacToeViewer window)
     {
-        g.drawImage(desired, x, y, widthAndHeight, widthAndHeight, null);
+        int width = 800 / 5;
+        int height = 800 / 5;
+        Image xImage = new ImageIcon("Resources/X.png").getImage();
+        Image oImage = new ImageIcon("Resources/O.png").getImage();
+        Font font = new Font("Serif", Font.ITALIC, 45);
+        g.setFont(font);
+        g.setColor(Color.BLACK);
+        g.drawRect(window.WINDOW_WIDTH / 5 * (row + 1), window.WINDOW_HEIGHT / 5 * (col + 1), width, height);
+        if (marker.equals(TicTacToe.X_MARKER))
+        {
+            g.drawImage(xImage, width * (col + 1), height * (row + 1), 800 / 5,
+                    800 / 5, window);
+        }
+        else if (marker.equals(TicTacToe.O_MARKER))
+        {
+            g.drawImage(oImage, width * (col + 1), height * (row + 1), 800 / 5,
+                    800 / 5, window);
+        }
+        if (isWinningSquare)
+        {
+            g.setColor(Color.GREEN);
+            g.fillRect(width * (col + 1), height * (row + 1),800 / 5, 800 / 5);
+            if (marker.equals(TicTacToe.X_MARKER))
+            {
+                g.drawImage(xImage, width * (col + 1), height * (row + 1), 800 / 5,
+                        800 / 5, window);
+                g.setColor(Color.BLACK);
+                Font newFont = new Font("Serif", Font.PLAIN, 90);
+                g.drawString("X Wins", 300, 700);
+            }
+            else if (marker.equals(TicTacToe.O_MARKER))
+            {
+                g.drawImage(oImage, width * (col + 1), height * (row + 1), 800 / 5,
+                        800 / 5, window);
+                g.setColor(Color.BLACK);
+                Font newFont = new Font("Serif", Font.PLAIN, 90);
+                g.drawString("O Wins", 300, 700);
+            }
+        }
+
+
 
     }
 }

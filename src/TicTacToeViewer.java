@@ -4,11 +4,14 @@ import java.awt.image.ImageObserver;
 
 public class TicTacToeViewer extends JFrame {
 
-    private final int WINDOW_WIDTH = 800;
-    private final int WINDOW_HEIGHT = 800;
+    public final int WINDOW_WIDTH = 800;
+    public final int WINDOW_HEIGHT = 800;
     private final Image xImage;
     private final Image oImage;
     private TicTacToe t;
+    private Square square;
+
+
     public TicTacToeViewer(TicTacToe t)
     {
         this.t = t;
@@ -18,6 +21,8 @@ public class TicTacToeViewer extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setVisible(true);
+        square = new Square(3, 3);
+
 
     }
 
@@ -34,12 +39,24 @@ public class TicTacToeViewer extends JFrame {
     public void paint(Graphics g)
     {
         setup(g);
+        Square[][] board = t.getBoard();
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                board[i][j].draw(g, this);
+            }
+        }
+        if (t.checkTie())
+        {
+            g.drawString("It's a Tie!", 300, 700);
+        }
     }
 
     public void setup(Graphics g)
     {
         g.setColor(Color.RED);
-        Font font = new Font("Times", Font.PLAIN, 45);
+        Font font = new Font("Serif", Font.ITALIC, 45);
         g.setFont(font);
 
         // Drawing numbers
@@ -49,17 +66,5 @@ public class TicTacToeViewer extends JFrame {
         g.drawString("0", WINDOW_WIDTH / 10, (WINDOW_HEIGHT  * 3) / 10);
         g.drawString("1", WINDOW_WIDTH / 10, WINDOW_HEIGHT / 2);
         g.drawString("2", WINDOW_WIDTH / 10, (WINDOW_HEIGHT * 7) / 10);
-        g.setColor(Color.BLACK);
-        g.drawLine(WINDOW_WIDTH / 5, WINDOW_HEIGHT / 5, WINDOW_WIDTH / 5, (WINDOW_HEIGHT * 4) / 5);
-        g.drawLine(WINDOW_WIDTH / 5, WINDOW_HEIGHT / 5, (WINDOW_WIDTH * 4) / 5, WINDOW_HEIGHT / 5);
-        g.drawLine(WINDOW_WIDTH / 5, (WINDOW_HEIGHT * 4) / 5, (WINDOW_WIDTH * 4) / 5, (WINDOW_HEIGHT * 4) / 5);
-        g.drawLine((WINDOW_WIDTH * 4) / 5, WINDOW_HEIGHT / 5, (WINDOW_WIDTH * 4) / 5, (WINDOW_HEIGHT * 4) / 5);
-        g.drawLine((WINDOW_WIDTH * 2) / 5, WINDOW_HEIGHT / 5, (WINDOW_WIDTH * 2) / 5, (WINDOW_HEIGHT * 4) / 5);
-        g.drawLine((WINDOW_WIDTH * 3) / 5, WINDOW_HEIGHT / 5, (WINDOW_WIDTH * 3) / 5, (WINDOW_HEIGHT * 4) / 5);
-        g.drawLine(WINDOW_WIDTH / 5, (WINDOW_HEIGHT * 2) / 5, (WINDOW_WIDTH * 4) / 5, (WINDOW_HEIGHT * 2) / 5);
-        g.drawLine(WINDOW_WIDTH / 5, (WINDOW_HEIGHT * 3) / 5, (WINDOW_WIDTH * 4) / 5, (WINDOW_HEIGHT * 3) / 5);
-
-//        g.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
     }
 }
